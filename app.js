@@ -52,7 +52,7 @@ app.get('/tweet_search', function(req, res){
             alchemyapi.sentiment("text", tweet_text, {}, function(response) {
                 
                 if(response.hasOwnProperty("sentiment")) { 
-                    if(response["sentiment"].hasOwnProperty("type")) {
+                    if(response["docSentiment"].hasOwnProperty("type")) {
                         tweets["sentiment"] = response["docSentiment"]["type"];
                     }
                 }
