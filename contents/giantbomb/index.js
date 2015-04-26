@@ -74,6 +74,9 @@ var GameData = {
                data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
                dataType: "jsonp",
                success: function(data){
+                   console.log("Success!");
+                   console.log("Data is:");
+                   console.log(data);
                    GameData.gamer(data);
                }
             });
