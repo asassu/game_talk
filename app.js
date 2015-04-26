@@ -76,7 +76,7 @@ app.get('/test_request', function(req, res){
     var data = req;
     //var api_key = "api_key=" + data['api_key'];
     //var api_key = "api_key=" + "325993269748578bf14aa503ce7b2613a6cdfb78"; //"293337dc0d93e1319cbcf7c424bf48e5b4c88347";
-    var api_key = "api_key=" + data.query['api_key'];//"325993269748578bf14aa503ce7b2613a6cdfb78"; //"293337dc0d93e1319cbcf7c424bf48e5b4c88347";
+    var api_key = "&api_key=" + data.query['api_key'];//"325993269748578bf14aa503ce7b2613a6cdfb78"; //"293337dc0d93e1319cbcf7c424bf48e5b4c88347";
     
     var query = "&query="+ data.query['query'];
     var format = "&format="+data.query['format']; //might need to be json
