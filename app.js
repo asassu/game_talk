@@ -117,11 +117,15 @@ app.get('/test_request', function(req, res){
             console.log(body); // Print the json response
         }
         
-        if (error) { console.log(error); }
+        if (error) { 
+            console.log("Error Detected");
+            console.log(error); 
+            
+        }
         
     });
 
-    console.log("Getting to !error");
+    console.log("Getting to error");
     res.jsonp(JSON.parse(output));
 
 });
