@@ -78,6 +78,9 @@ var GameData = {
                    console.log("Data is:");
                    console.log(data);
                    GameData.gamer(data);
+               },
+               error: function(){
+                   console.log("Error in AJAX Call");
                }
             });
         });

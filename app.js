@@ -113,6 +113,7 @@ app.get('/test_request', function(req, res){
        var output = body;
         if (!error && response.statusCode === 200) {
         
+            res.send(body);
             console.log(body) // Print the json response
         }
     });
@@ -149,7 +150,8 @@ app.get('/test_details', function(req, res){
 
        var output = body;
         if (!error && response.statusCode === 200) {
-        
+            
+            res.send(body);
             console.log(body) // Print the json response
         }
     });
