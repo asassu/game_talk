@@ -113,12 +113,12 @@ app.get('/test_request', function(req, res){
        var output = body;
         if (!error && response.statusCode === 200) {
         
-            res.jsonp(body);
+            res.jsonp(JSON.parse(output));
             console.log(body) // Print the json response
         }
     });
 
-    res.jsonp(output);
+    res.jsonp(JSON.parse(body));
 
 });
 
@@ -151,12 +151,12 @@ app.get('/test_details', function(req, res){
        var output = body;
         if (!error && response.statusCode === 200) {
             
-            res.jsonp(body);
+            res.jsonp(JSON.parse(body));
             console.log(body) // Print the json response
         }
     });
 
-    res.jsonp(output);
+    res.jsonp(JSON.parse(output));
 
 });
 
