@@ -70,7 +70,7 @@ app.get('/tweet_search', function(req, res){
 
 app.get('/test_request', function(req, res){
 
-    var query = req.query['q'] || "";
+    var query = req.query['query'] || "";
     console.log(query);
 
 
