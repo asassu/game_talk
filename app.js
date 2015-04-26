@@ -70,17 +70,32 @@ app.get('/tweet_search', function(req, res){
 
 app.get('/test_request', function(req, res){
 
-    var query = req.query['query'] || "";
-    console.log(query);
+    //var query = req.query['query'] || "";
+    //console.log(query);
 
+    var data = req;
+    var api_key = "api_key=" + data['api_key'];
+    var query = "&query="+ data['query'];
+    var format = "&format="+data['format']; //might need to be json
+    var resources = "&resources=" + data['resources'];
+    
+    var search_url = "https://api.giantbomb.com/search?json_callback=?" + api_key + query + format + resources;
+    
+    console.log(search_url);
+    
+    //https://api.giantbomb.com/search/?json_callback=?
+    //data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
+    
+    
 
-    //Search API Text:
-    var api_key = "325993269748578bf14aa503ce7b2613a6cdfb78";
-    var query = "&query=metroid";
-    var resources = "&resources=game";
-    var search_url = "http://www.giantbomb.com/api/search?api_key=" + api_key + "&field_list=name&format=json"+ query + resources;
+    ////Search API Text:
+    //var api_key = "325993269748578bf14aa503ce7b2613a6cdfb78";
+    //var query = "&query=metroid";
+    //var resources = "&resources=game";
+    //var search_url = "http://www.giantbomb.com/api/search?api_key=" + api_key + "&field_list=name&format=json"+ query + resources;
 
-    var data;
+    //var data;
+    var output;
 
     console.log("test!");
 
@@ -91,14 +106,15 @@ app.get('/test_request', function(req, res){
     }, function (error, response, body) {
 
         //data = response;
-        data = body;
+       // data = body;
+       var output = body;
         if (!error && response.statusCode === 200) {
         
             console.log(body) // Print the json response
         }
     });
 
-    res.send(data);
+    res.send(output);
 
 });
 
