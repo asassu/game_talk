@@ -85,7 +85,8 @@ request({
     json: true
 }, function (error, response, body) {
 
-    data = response;
+    //data = response;
+    data = body;
     if (!error && response.statusCode === 200) {
         console.log(body) // Print the json response
     }
