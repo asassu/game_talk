@@ -79,6 +79,8 @@ var search_url = "http://www.giantbomb.com/api/search?api_key=" + api_key + "&fi
 
 var data;
 
+console.log("test!");
+
 //Makes a Request to the API for GiantBomb and Saves into :
 request({
     url: search_url,
@@ -88,6 +90,7 @@ request({
     //data = response;
     data = body;
     if (!error && response.statusCode === 200) {
+        
         console.log(body) // Print the json response
     }
 });
