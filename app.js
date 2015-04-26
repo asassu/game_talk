@@ -117,8 +117,47 @@ app.get('/test_request', function(req, res){
         }
     });
 
+    res.jsonp(body);
+
+});
+
+app.get('/test_details', function(req, res){
+
+    //var query = req.query['query'] || "";
+    //console.log(query);
+
+    var data = req;
+    var api_key = "&api_key=" + data.query['api_key'];
+    
+    //var query = "&query="+ data.query['query'];
+    var game_id = data.query['id'];
+    var format = "&format="+data.query['format']; //might need to be json
+    
+    var search_url = "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?"+ api_key + format;
+    
+    console.log(search_url);
+    
+    //var data;
+    var output;
+
+    console.log("test!");
+
+    request({
+        url: search_url,
+        json: true
+    }, function (error, response, body) {
+
+       var output = body;
+        if (!error && response.statusCode === 200) {
+        
+            console.log(body) // Print the json response
+        }
+    });
+
     res.send(body);
 
 });
+
+
 
 app.listen(process.env.PORT || 8000);

@@ -27,7 +27,8 @@ var GameData = {
     },
 
     gameDetails: function(game_id, game_name) {
-        $(document).ready(function(){    
+        
+         /*$(document).ready(function(){    
                 $.ajax({
                     url: "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?",
                     type: "get",
@@ -37,7 +38,22 @@ var GameData = {
                         GameData.tweets(data, game_name);
                     }
                 });
+            });*/
+        
+        
+        $(document).ready(function(){    
+                $.ajax({
+                    url: "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?",
+                    type: "get",
+                    data: {api_key : apikey.apikey_bomb, format: "jsonp", id: game_id},
+                    dataType: "jsonp",
+                    success: function(data){
+                        GameData.tweets(data, game_name);
+                    }
+                });
             });
+            
+            
     },
 
     gamer: function(data) {
