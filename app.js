@@ -117,7 +117,7 @@ app.get('/test_request', function(req, res){
         }
     });
 
-    res.send(output);
+    res.send(body);
 
 });
 
