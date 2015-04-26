@@ -104,8 +104,8 @@ app.get('/test_request', function(req, res){
 
 //Makes a Request to the API for GiantBomb and Saves into :
     request({
-        url: search_url,
-        json: true
+        url: search_url
+        //json: true
     }, function (error, response, body) {
 
         //data = response;
@@ -131,9 +131,6 @@ app.get('/test_request', function(req, res){
 });
 
 app.get('/test_details', function(req, res){
-
-    //var query = req.query['query'] || "";
-    //console.log(query);
 
     var data = req;
     var api_key = "&api_key=" + data.query['api_key'];
