@@ -29,7 +29,7 @@ var GameData = {
     gameDetails: function(game_id, game_name) {
         $(document).ready(function(){    
                 $.ajax({
-                    url: "//api.giantbomb.com/game/"+game_id+"/?json_callback=?",
+                    url: "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?",
                     type: "get",
                     data: {api_key : apikey.apikey_bomb, format: "jsonp"},
                     dataType: "jsonp",
@@ -53,7 +53,7 @@ var GameData = {
 
         $(document).ready(function(){    
             $.ajax({
-                url: "//api.giantbomb.com/search/?json_callback=?",
+                url: "https://api.giantbomb.com/search/?json_callback=?",
                 type: "get",
                 data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
                 dataType: "jsonp",
