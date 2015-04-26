@@ -91,8 +91,7 @@ request({
     }
 });
 
-    
-    res.send("test");
+    res.send(data);
 
 });
 
