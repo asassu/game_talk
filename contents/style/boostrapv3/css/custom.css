@@ -1,6 +1,8 @@
 body{
 	margin: 0px;
 	padding: 0px;
+	background-color: #222;
+	color: #fff;
 }
 
 #clearme{
@@ -35,12 +37,17 @@ h3{
 #gameTalkLogo{
 	color: white;
 	text-align: center;
-	background-color: #111;
-	margin: -20px;
+	background-color: #07598C;
+	margin-top: -20px;
 }
 
 #gameTalkLogo h1{
 	font-size: 5em;
+}
+
+#gameTalkLogo a{
+	color: white;
+	text-decoration : none;
 }
 
 #gameTalkLogo h2{
@@ -60,12 +67,18 @@ h3{
 #searchbox{
 	margin: 0 auto;
 	text-align: center;
-	background-color: #111;
+	background-color: #07598C;
 	padding: 20px;
+	border-bottom: 10px double white;
+	color: #000;
 }
 
 #searchbox button{
 	margin-left: 10px;
+}
+
+#searchbox input{
+	color: #000;
 }
 
 #name{
@@ -73,11 +86,39 @@ h3{
 }
 
 #ui{
-	background-color: #eee;
+	background-color: #000;
 	border: 1px solid #ccc;
 	padding: 10px;
+	margin: 20px;
+	min-height: 150px;
 }
 
 #ui h5{
 	font-weight: bold;
+}
+
+#list{
+	padding: 20px;
+}
+
+#list p{
+	padding: 8px;
+}
+
+#list img{
+	border: 2px solid #111;
+}
+
+#list .col-md-3 a{
+	text-align: center;
+}
+
+#list .row{
+	border-bottom: 3px dashed #ccc;
+	padding: 20px;
+	margin: 20px 5px;
+}
+
+.btn-primary{
+	background-color: black;
 }

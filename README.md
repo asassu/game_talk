@@ -9,6 +9,8 @@ UCDD2 Final Project: Game Talk
 
 ##About##
 
+**URL:** https://game-talk.herokuapp.com/
+
 **Overview:** Create a website that, given the name of a recent video game, pulls news, reviews, and tweets about the game for market feedback purposes.
 
 **APIs:**
@@ -28,7 +30,7 @@ Additionally, we are planning for this to be a one-page website: it will look a 
 **Responsibilities:**
 
 * Olivia Abrant - Working with OAuth and Twitter
-* Erik Eakins - Working with OAuth and GamesRadar
+* Erik Eakins - Working with OAuth and GiantBomb after GamesRadar dropped that damn ball
 * Andrea Sassu - Building the front end (layout, CSS)
 
 ##Milestones##

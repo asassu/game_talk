@@ -37,6 +37,12 @@
             b= "Description: "
             if (gen.deck)
                 |#{gen.deck}
+        <marquee>
+        each im in gen.images
+           if (im.screen_url)
+               if(im.tags.substring(0,11) == "Screenshots")
+                   img(src= im.screen_url)
+        </marquee>
         .row
             h2 Twitter Results
             b= "Trend: "
@@ -44,7 +50,7 @@
             br
             b
             br
-            if (data.statuses > 0)
+            if (data.statuses.length > 0)
                 each item in data.statuses.slice(0, 5)
                     .indented
                         .row

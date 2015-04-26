@@ -1,7 +1,7 @@
 var GameData = {
 
     details: function(tweetData, genData) {
-        console.log(genData)
+        console.log(genData.results.images)
         $.get("/giantbomb/details.jade", function(template) {
             var html = jade.render(template, {
                 gen: genData.results,
@@ -14,7 +14,7 @@ var GameData = {
     tweets: function(genData, game_name) {
         $(document).ready(function(){    
             var test = $.ajax({
-                url: "http://localhost:8000/tweet_search", // our heroku address will go here until more clever way of referencing self is found ;) ;D
+                url: "https://game-talk.herokuapp.com/tweet_search", // our heroku address will go here until more clever way of referencing self is found ;) ;D
                 type: "get",
                 data: {
                     q: game_name
@@ -29,7 +29,7 @@ var GameData = {
     gameDetails: function(game_id, game_name) {
         $(document).ready(function(){    
                 $.ajax({
-                    url: "http://api.giantbomb.com/game/"+game_id+"/?json_callback=?",
+                    url: "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?",
                     type: "get",
                     data: {api_key : apikey.apikey_bomb, format: "jsonp"},
                     dataType: "jsonp",
@@ -53,7 +53,7 @@ var GameData = {
 
         $(document).ready(function(){    
             $.ajax({
-                url: "http://api.giantbomb.com/search/?json_callback=?",
+                url: "https://api.giantbomb.com/search/?json_callback=?",
                 type: "get",
                 data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
                 dataType: "jsonp",
