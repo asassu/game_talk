@@ -74,7 +74,8 @@ app.get('/test_request', function(req, res){
     //console.log(query);
 
     var data = req;
-    var api_key = "api_key=" + data['api_key'];
+    //var api_key = "api_key=" + data['api_key'];
+    var api_key = "api_key=" + "293337dc0d93e1319cbcf7c424bf48e5b4c88347";
     var query = "&query="+ data['query'];
     var format = "&format="+data['format']; //might need to be json
     var resources = "&resources=" + data['resources'];
