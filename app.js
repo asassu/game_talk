@@ -14,6 +14,7 @@ var consolidate = require('consolidate');
 var AlchemyAPI = require('./alchemyapi');
 var alchemyapi = new AlchemyAPI();
 
+var request = require("request");
 
 //Twitter Module:
 var Twitter = require('twitter');
@@ -65,6 +66,12 @@ app.get('/tweet_search', function(req, res){
              //res.send(tweets) 
         }
     });
+});
+
+app.get('/test_request', function(req, res){
+    
+    res.send("test");
+
 });
 
 app.listen(process.env.PORT || 8000);
