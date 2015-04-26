@@ -70,6 +70,28 @@ app.get('/tweet_search', function(req, res){
 
 app.get('/test_request', function(req, res){
     
+    
+    //Search API Text:
+var api_key = "325993269748578bf14aa503ce7b2613a6cdfb78";
+var query = "&query=metroid";
+var resources = "&resources=game";
+var search_url = "http://www.giantbomb.com/api/search?api_key=" + api_key + "&field_list=name&format=json"+ query + resources;
+
+var data;
+
+//Makes a Request to the API for GiantBomb and Saves into :
+request({
+    url: search_url,
+    json: true
+}, function (error, response, body) {
+
+    data = response;
+    if (!error && response.statusCode === 200) {
+        console.log(body) // Print the json response
+    }
+});
+
+    
     res.send("test");
 
 });
