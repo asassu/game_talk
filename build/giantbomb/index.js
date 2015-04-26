@@ -14,7 +14,7 @@ var GameData = {
     tweets: function(genData, game_name) {
         $(document).ready(function(){    
             var test = $.ajax({
-                url: "https://game-talk.herokuapp.com/tweet_search", // our heroku address will go here until more clever way of referencing self is found ;) ;D
+                url: "https://morning-peak-6716.herokuapp.com/tweet_search", // our heroku address will go here until more clever way of referencing self is found ;) ;D
                 type: "get",
                 data: {
                     q: game_name
@@ -50,8 +50,21 @@ var GameData = {
     },
     
     searchByName: function(name) {
+ 
+        $(document).ready(function(){
+            $.ajax({
+               url: "https://morning-peak-6716.herokuapp.com/test_request",
+               type: "get",
+               data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
+               dataType: "jsonp",
+               success: function(data){
+                   GameData.gamer(data);
+               }
+            });
+        });
 
-        $(document).ready(function(){    
+
+        /*$(document).ready(function(){    
             $.ajax({
                 url: "https://api.giantbomb.com/search/?json_callback=?",
                 type: "get",
@@ -61,7 +74,7 @@ var GameData = {
                     GameData.gamer(data);
                 } 
             });
-        });
+        });*/
     },
 
     load: function() {
