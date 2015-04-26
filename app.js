@@ -114,11 +114,15 @@ app.get('/test_request', function(req, res){
         if (!error && response.statusCode === 200) {
         
             res.jsonp(JSON.parse(output));
-            console.log(body) // Print the json response
+            console.log(body); // Print the json response
         }
+        
+        if (error) { console.log(error); }
+        
     });
 
-    res.jsonp(JSON.parse(body));
+    console.log("Getting to !error");
+    res.jsonp(JSON.parse(output));
 
 });
 
@@ -152,7 +156,7 @@ app.get('/test_details', function(req, res){
         if (!error && response.statusCode === 200) {
             
             res.jsonp(JSON.parse(body));
-            console.log(body) // Print the json response
+            console.log(body); // Print the json response
         }
     });
 
