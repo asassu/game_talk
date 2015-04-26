@@ -117,7 +117,7 @@ app.get('/test_request', function(req, res){
         }
     });
 
-    res.jsonp(body);
+    res.send(output);
 
 });
 
@@ -154,7 +154,7 @@ app.get('/test_details', function(req, res){
         }
     });
 
-    res.send(body);
+    res.send(output);
 
 });
 
