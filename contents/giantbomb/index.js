@@ -14,7 +14,7 @@ var GameData = {
     tweets: function(genData, game_name) {
         $(document).ready(function(){    
             var test = $.ajax({
-                url: "https://morning-peak-6716.herokuapp.com/tweet_search", // our heroku address will go here until more clever way of referencing self is found ;) ;D
+                url: "https://morning-peak-6716.herokuapp.com/tweet_search",
                 //url: "https://web-design-erikkierstead.c9.io/tweet_search",
                 type: "get",
                 data: {
@@ -29,19 +29,6 @@ var GameData = {
 
     gameDetails: function(game_id, game_name) {
         
-         /*$(document).ready(function(){    
-                $.ajax({
-                    url: "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?",
-                    type: "get",
-                    data: {api_key : apikey.apikey_bomb, format: "jsonp"},
-                    dataType: "jsonp",
-                    success: function(data){
-                        GameData.tweets(data, game_name);
-                    }
-                });
-            });*/
-        
-        
         $(document).ready(function(){    
                 $.ajax({
                     //url: "//api.giantbomb.com/game/"+game_id+"/?json_callback=?",
@@ -52,11 +39,12 @@ var GameData = {
                     dataType: "json",
                     success: function(data){
                         GameData.tweets(data, game_name);
+                    },
+                    error: function(data){
+                        console.log("Error in Searching By Name");
                     }
                 });
             });
-            
-            
     },
 
     gamer: function(data) {
@@ -79,31 +67,13 @@ var GameData = {
                data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
                dataType: "json",
                success: function(data){
-                 //  console.log("Success!");
-                  // console.log("Data is:");
-                  // console.log(data);
                    GameData.gamer(data);
                },
                error: function(data){
-                  // console.log("Error in AJAX Call");
-                  // console.log(data);
-                  // GameData.gamer(data);
+                   console.log("Error in Searching By Name");
                }
             });
         });
-
-
-        /*$(document).ready(function(){    
-            $.ajax({
-                url: "https://api.giantbomb.com/search/?json_callback=?",
-                type: "get",
-                data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
-                dataType: "jsonp",
-                success: function(data) { 
-                    GameData.gamer(data);
-                } 
-            });
-        });*/
     },
 
     load: function() {

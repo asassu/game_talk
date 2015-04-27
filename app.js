@@ -61,7 +61,8 @@ app.get('/tweet_search', function(req, res){
                     }
                 }
                    
-                    res.send(tweets);
+                res.send(tweets);
+                
             });
         
              
@@ -124,7 +125,5 @@ app.get('/giantbomb_details', function(req, res){
         }
     });
 });
-
-
 
 app.listen(process.env.PORT || 8000);
