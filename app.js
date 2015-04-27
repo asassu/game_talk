@@ -1,7 +1,7 @@
 var express = require("express");
 
 //Creating Web Server 
-var http = require('https');
+var http = require('http');
 var path = require('path');
 
 //Creating the Web Server:
@@ -38,6 +38,7 @@ app.get('/tweet_search', function(req, res){
     client.get('search/tweets', {q: query, count:50}, function(error, tweets, response){
    
         if(error) {
+            console.log("Error Getting Tweets");
             //return an object with statuses with blank / error values:
         }
          
@@ -51,6 +52,8 @@ app.get('/tweet_search', function(req, res){
             tweets["sentiment"] = "None";
         
             alchemyapi.sentiment("text", tweet_text, {}, function(response) {
+                
+                console.log("");
                 
                 if(response.hasOwnProperty("sentiment")) { 
                     if(response["docSentiment"].hasOwnProperty("type")) {
@@ -79,10 +82,13 @@ app.get('/test_request', function(req, res){
     var api_key = "&api_key=" + data.query['api_key'];//"325993269748578bf14aa503ce7b2613a6cdfb78"; //"293337dc0d93e1319cbcf7c424bf48e5b4c88347";
     
     var query = "&query="+ data.query['query'];
-    var format = "&format="+data.query['format']; //might need to be json
+    //var format = "&format="+data.query['format']; //might need to be json
+    var format = "&format=json"; //might need to be json
     var resources = "&resources=" + data.query['resources'];
     
-    var search_url = "https://api.giantbomb.com/search?json_callback=?" + api_key + query + format + resources;
+    //var search_url = "https://api.giantbomb.com/search?json_callback=jQuery111105134137694258243_1430121867018" + api_key + query + format + resources;
+    var search_url = "https://api.giantbomb.com/search?" + api_key + query + format + resources;
+    
     
     console.log(search_url);
     
@@ -112,9 +118,10 @@ app.get('/test_request', function(req, res){
        // data = body;
        var output = body;
         if (!error && response.statusCode === 200) {
-        
-            res.jsonp(JSON.parse(output));
-            console.log(body); // Print the json response
+            
+            console.log("Inside Error");
+            res.send(output);
+            //console.log(body); // Print the json response
         }
         
         if (error) { 
@@ -126,7 +133,8 @@ app.get('/test_request', function(req, res){
     });
 
     console.log("Getting to error");
-    res.jsonp(JSON.parse(output));
+    //console.log(output);
+    //res.send(output);
 
 });
 
@@ -137,9 +145,12 @@ app.get('/test_details', function(req, res){
     
     //var query = "&query="+ data.query['query'];
     var game_id = data.query['id'];
-    var format = "&format="+data.query['format']; //might need to be json
+    //var format = "&format="+data.query['format']; //might need to be json
+    var format = "&format=json";
     
-    var search_url = "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?"+ api_key + format;
+    //var search_url = "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?"+ api_key + format;
+    var search_url = "https://api.giantbomb.com/game/"+game_id+"/?"+ api_key + format;
+    
     
     console.log(search_url);
     
@@ -156,12 +167,14 @@ app.get('/test_details', function(req, res){
        var output = body;
         if (!error && response.statusCode === 200) {
             
-            res.jsonp(JSON.parse(body));
+            res.send(body);
             console.log(body); // Print the json response
         }
+        
+        else if (error) { console.log("Error"); }
     });
 
-    res.jsonp(JSON.parse(output));
+    //res.jsonp(JSON.parse(output));
 
 });
 
