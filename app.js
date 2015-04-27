@@ -71,94 +71,17 @@ app.get('/tweet_search', function(req, res){
     });
 });
 
-app.get('/test_request', function(req, res){
+app.get('/giantbomb_request', function(req, res){
 
-    //var query = req.query['query'] || "";
-    //console.log(query);
-
-    var data = req;
-    //var api_key = "api_key=" + data['api_key'];
-    //var api_key = "api_key=" + "325993269748578bf14aa503ce7b2613a6cdfb78"; //"293337dc0d93e1319cbcf7c424bf48e5b4c88347";
-    var api_key = "&api_key=" + data.query['api_key'];//"325993269748578bf14aa503ce7b2613a6cdfb78"; //"293337dc0d93e1319cbcf7c424bf48e5b4c88347";
+    //Variables Required to Construct URL to GiantBomb:
+    var api_key = "&api_key=" + req.query['api_key'];
+    var query = "&query="+ req.query['query'];
+    var format = "&format=json";
+    var resources = "&resources=" + req.query['resources'];
     
-    var query = "&query="+ data.query['query'];
-    //var format = "&format="+data.query['format']; //might need to be json
-    var format = "&format=json"; //might need to be json
-    var resources = "&resources=" + data.query['resources'];
-    
-    //var search_url = "https://api.giantbomb.com/search?json_callback=jQuery111105134137694258243_1430121867018" + api_key + query + format + resources;
     var search_url = "https://api.giantbomb.com/search?" + api_key + query + format + resources;
     
-    
-    console.log(search_url);
-    
-    //https://api.giantbomb.com/search/?json_callback=?
-    //data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
-    
-    
-
-    ////Search API Text:
-    //var api_key = "325993269748578bf14aa503ce7b2613a6cdfb78";
-    //var query = "&query=metroid";
-    //var resources = "&resources=game";
-    //var search_url = "http://www.giantbomb.com/api/search?api_key=" + api_key + "&field_list=name&format=json"+ query + resources;
-
-    //var data;
-    var output;
-
-    console.log("test!");
-
-//Makes a Request to the API for GiantBomb and Saves into :
-    request({
-        url: search_url
-        //json: true
-    }, function (error, response, body) {
-
-        //data = response;
-       // data = body;
-       var output = body;
-        if (!error && response.statusCode === 200) {
-            
-            console.log("Inside Error");
-            res.send(output);
-            //console.log(body); // Print the json response
-        }
-        
-        if (error) { 
-            console.log("Error Detected");
-            console.log(error); 
-            
-        }
-        
-    });
-
-    console.log("Getting to error");
-    //console.log(output);
-    //res.send(output);
-
-});
-
-app.get('/test_details', function(req, res){
-
-    var data = req;
-    var api_key = "&api_key=" + data.query['api_key'];
-    
-    //var query = "&query="+ data.query['query'];
-    var game_id = data.query['id'];
-    //var format = "&format="+data.query['format']; //might need to be json
-    var format = "&format=json";
-    
-    //var search_url = "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?"+ api_key + format;
-    var search_url = "https://api.giantbomb.com/game/"+game_id+"/?"+ api_key + format;
-    
-    
-    console.log(search_url);
-    
-    //var data;
-    var output;
-
-    console.log("test!");
-
+    //Makes a Request to the API for GiantBomb and Saves into :
     request({
         url: search_url,
         json: true
@@ -166,16 +89,40 @@ app.get('/test_details', function(req, res){
 
        var output = body;
         if (!error && response.statusCode === 200) {
-            
-            res.send(body);
-            console.log(body); // Print the json response
+            res.send(output);
         }
         
-        else if (error) { console.log("Error"); }
+        if (error) { 
+            console.log("Error Retrieving Giant Bomb Search");
+            console.log(error); 
+        }
     });
+});
 
-    //res.jsonp(JSON.parse(output));
+app.get('/giantbomb_details', function(req, res){
 
+    //Variables Required to Construct URL to GiantBomb:
+    var api_key = "&api_key=" + req.query['api_key'];  //API Key Moved to Backend?
+    var game_id = req.query['id'];
+    var format = "&format=json";
+    
+    var search_url = "https://api.giantbomb.com/game/"+game_id+"/?"+ api_key + format;
+    
+    request({
+        url: search_url,
+        json: true
+    }, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+            
+            res.send(body);
+        }
+        
+        else if (error) { 
+            console.log("Error in Retrieving Details from GiantBomb"); 
+            console.log(error);
+        }
+    });
 });
 
 
