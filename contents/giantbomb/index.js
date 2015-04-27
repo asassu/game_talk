@@ -33,7 +33,7 @@ var GameData = {
                 $.ajax({
                     //url: "//api.giantbomb.com/game/"+game_id+"/?json_callback=?",
                     //url: "https://web-design-erikkierstead.c9.io/test_details",
-                    url: "https://morning-peak-6716.herokuapp.com/test_details",
+                    url: "https://morning-peak-6716.herokuapp.com/giantbomb_details",
                     type: "get",
                     data: {api_key : apikey.apikey_bomb, format: "jsonp", id: game_id},
                     dataType: "json",
@@ -60,7 +60,7 @@ var GameData = {
  
         $(document).ready(function(){
             $.ajax({
-               url: "https://morning-peak-6716.herokuapp.com/test_request",
+               url: "https://morning-peak-6716.herokuapp.com/giantbomb_request",
                //url: "https://web-design-erikkierstead.c9.io/test_request",
                //url: "//api.giantbomb.com/search/?json_callback=?",
                type: "get",
