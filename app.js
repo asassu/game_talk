@@ -35,39 +35,36 @@ app.get('/tweet_search', function(req, res){
  
     var query = req.query['q'] || "";
    
-    client.get('search/tweets', {q: query, count:50}, function(error, tweets, response){
+    client.get('search/tweets', {q: query, count:50, lang:"en"}, function(error, tweets, response){
    
         if(error) {
             console.log("Error Getting Tweets");
-            //return an object with statuses with blank / error values:
+            //"No Tweets Detected Caught in Front End
         }
          
-         //Successful Call to Twitter:
+        // On Successful RESTful API Call to Twitter:
         else { 
              
-             //Combines Text from All Tweets, Uses AlchemyAPI for Sentiment Analysis and Returns Pos/Neg:
+            //Combines Text from All Tweets, Uses AlchemyAPI for Sentiment Analysis and Returns Pos/Neg:
             var tweet_text= "";
-            for(index in tweets['statuses']){ tweet_text += tweets["statuses"][index].text + " ";}
+            for(index in tweets['statuses']){ tweet_text += tweets["statuses"][index].text + " "; }
 
             tweets["sentiment"] = "None";
-        
+
             alchemyapi.sentiment("text", tweet_text, {}, function(response) {
-                
-                console.log("");
-                
-                if(response.hasOwnProperty("sentiment")) { 
+
+                //Checks for Successful Sentiment Replies             
+                if(response.hasOwnProperty("docSentiment")) { 
                     if(response["docSentiment"].hasOwnProperty("type")) {
                         tweets["sentiment"] = response["docSentiment"]["type"];
                     }
                 }
+                
+                else { console.log("Error in AlchemyAPI Call"); }
                    
                 res.send(tweets);
                 
             });
-        
-             
-             //Fix scoping issue with tweets['sentiment'] not being permanent in alchemyapi method
-             //res.send(tweets) 
         }
     });
 });
@@ -82,7 +79,7 @@ app.get('/giantbomb_request', function(req, res){
     
     var search_url = "https://api.giantbomb.com/search?" + api_key + query + format + resources;
     
-    //Makes a Request to the API for GiantBomb and Saves into :
+    //Makes Request to GiantBomb API:
     request({
         url: search_url,
         json: true
@@ -94,7 +91,7 @@ app.get('/giantbomb_request', function(req, res){
         }
         
         if (error) { 
-            console.log("Error Retrieving Giant Bomb Search");
+            console.log("Error Retrieving GiantBomb Search");
             console.log(error); 
         }
     });
@@ -109,6 +106,7 @@ app.get('/giantbomb_details', function(req, res){
     
     var search_url = "https://api.giantbomb.com/game/"+game_id+"/?"+ api_key + format;
     
+    //Makes Request to GiantBomb API:
     request({
         url: search_url,
         json: true
