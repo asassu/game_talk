@@ -31,7 +31,7 @@ var GameData = {
         
         $(document).ready(function(){    
                 $.ajax({
-                    //url: "https://web-design-erikkierstead.c9.io/giantbomb_details",
+                    //url: "https://web-design-erikkierstead.c9.io/giantbomb_details",//
                     url: "https://morning-peak-6716.herokuapp.com/giantbomb_details",
                     type: "get",
                     data: {api_key : apikey.apikey_bomb, format: "jsonp", id: game_id},
