@@ -3,7 +3,8 @@
   	"express": "*",
   	"twitter": "*",
   	"consolidate": "~0.9.1",
-    "dustjs-linkedin": "~2.0.3"
+    "dustjs-linkedin": "~2.0.3",
+    "request": "*"
   },
   "repository": "none"
 }

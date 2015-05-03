@@ -1,7 +1,7 @@
 var express = require("express");
 
 //Creating Web Server 
-var http = require('https');
+var http = require('http');
 var path = require('path');
 
 //Creating the Web Server:
@@ -14,6 +14,7 @@ var consolidate = require('consolidate');
 var AlchemyAPI = require('./alchemyapi');
 var alchemyapi = new AlchemyAPI();
 
+var request = require("request");
 
 //Twitter Module:
 var Twitter = require('twitter');
@@ -34,35 +35,91 @@ app.get('/tweet_search', function(req, res){
  
     var query = req.query['q'] || "";
    
-    client.get('search/tweets', {q: query, count:50}, function(error, tweets, response){
+    client.get('search/tweets', {q: query, count:50, lang:"en"}, function(error, tweets, response){
    
         if(error) {
-            //return an object with statuses with blank / error values:
+            console.log("Error Getting Tweets");
+            //"No Tweets Detected Caught in Front End
         }
          
-         //Successful Call to Twitter:
+        // On Successful RESTful API Call to Twitter:
         else { 
              
-             //Combines Text from All Tweets, Uses AlchemyAPI for Sentiment Analysis and Returns Pos/Neg:
+            //Combines Text from All Tweets, Uses AlchemyAPI for Sentiment Analysis and Returns Pos/Neg:
             var tweet_text= "";
-            for(index in tweets['statuses']){ tweet_text += tweets["statuses"][index].text + " ";}
+            for(index in tweets['statuses']){ tweet_text += tweets["statuses"][index].text + " "; }
 
             tweets["sentiment"] = "None";
-        
+
             alchemyapi.sentiment("text", tweet_text, {}, function(response) {
-                
-                if(response.hasOwnProperty("sentiment")) { 
-                    if(response["sentiment"].hasOwnProperty("type")) {
+
+                //Checks for Successful Sentiment Replies             
+                if(response.hasOwnProperty("docSentiment")) { 
+                    if(response["docSentiment"].hasOwnProperty("type")) {
                         tweets["sentiment"] = response["docSentiment"]["type"];
                     }
                 }
+                
+                else { console.log("Error in AlchemyAPI Call"); }
                    
-                    res.send(tweets);
+                res.send(tweets);
+                
             });
+        }
+    });
+});
+
+app.get('/giantbomb_request', function(req, res){
+
+    //Variables Required to Construct URL to GiantBomb:
+    var api_key = "&api_key=" + req.query['api_key'];
+    var query = "&query="+ req.query['query'];
+    var format = "&format=json";
+    var resources = "&resources=" + req.query['resources'];
+    
+    var search_url = "https://api.giantbomb.com/search?" + api_key + query + format + resources;
+    
+    //Makes Request to GiantBomb API:
+    request({
+        url: search_url,
+        json: true
+    }, function (error, response, body) {
+
+       var output = body;
+        if (!error && response.statusCode === 200) {
+            res.send(output);
+        }
         
-             
-             //Fix scoping issue with tweets['sentiment'] not being permanent in alchemyapi method
-             //res.send(tweets) 
+        if (error) { 
+            console.log("Error Retrieving GiantBomb Search");
+            console.log(error); 
+        }
+    });
+});
+
+app.get('/giantbomb_details', function(req, res){
+
+    //Variables Required to Construct URL to GiantBomb:
+    var api_key = "&api_key=" + req.query['api_key'];  //API Key Moved to Backend?
+    var game_id = req.query['id'];
+    var format = "&format=json";
+    
+    var search_url = "https://api.giantbomb.com/game/"+game_id+"/?"+ api_key + format;
+    
+    //Makes Request to GiantBomb API:
+    request({
+        url: search_url,
+        json: true
+    }, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+            
+            res.send(body);
+        }
+        
+        else if (error) { 
+            console.log("Error in Retrieving Details from GiantBomb"); 
+            console.log(error);
         }
     });
 });

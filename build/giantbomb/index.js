@@ -14,27 +14,33 @@ var GameData = {
     tweets: function(genData, game_name) {
         $(document).ready(function(){    
             var test = $.ajax({
-                url: "https://game-talk.herokuapp.com/tweet_search", // our heroku address will go here until more clever way of referencing self is found ;) ;D
+                url: "https://morning-peak-6716.herokuapp.com/tweet_search",
+                //url: "https://web-design-erikkierstead.c9.io/tweet_search",
                 type: "get",
                 data: {
                     q: game_name
                 },
-                dataType: "json", //was jsonp
+                dataType: "json",
                 success: function(data) { GameData.details(data, genData) }, 
-                error: function(){ console.log("Error in Ajax Call (oh noes!)"); }
+                error: function(){ console.log("Error in Ajax Call to Twitter Interface /tweet_search (oh noes!)"); }
             });
         });
     },
 
     gameDetails: function(game_id, game_name) {
+        
         $(document).ready(function(){    
                 $.ajax({
-                    url: "https://api.giantbomb.com/game/"+game_id+"/?json_callback=?",
+                    //url: "https://web-design-erikkierstead.c9.io/giantbomb_details",//
+                    url: "https://morning-peak-6716.herokuapp.com/giantbomb_details",
                     type: "get",
-                    data: {api_key : apikey.apikey_bomb, format: "jsonp"},
-                    dataType: "jsonp",
+                    data: {api_key : apikey.apikey_bomb, format: "jsonp", id: game_id},
+                    dataType: "json",
                     success: function(data){
                         GameData.tweets(data, game_name);
+                    },
+                    error: function(data){
+                        console.log("Error in Ajax Call to GiantBomb Game Details API Interface /giantbomb_details (dizang!)");
                     }
                 });
             });
@@ -50,16 +56,20 @@ var GameData = {
     },
     
     searchByName: function(name) {
-
-        $(document).ready(function(){    
+ 
+        $(document).ready(function(){
             $.ajax({
-                url: "https://api.giantbomb.com/search/?json_callback=?",
-                type: "get",
-                data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
-                dataType: "jsonp",
-                success: function(data) { 
-                    GameData.gamer(data);
-                } 
+               url: "https://morning-peak-6716.herokuapp.com/giantbomb_request",
+               //url: "https://web-design-erikkierstead.c9.io/giantbomb_request",
+               type: "get",
+               data: {api_key : apikey.apikey_bomb, query: name, format: "jsonp", resources: "game"},
+               dataType: "json",
+               success: function(data){
+                   GameData.gamer(data);
+               },
+               error: function(data){
+                   console.log("Error in Ajax Call to GiantBomb Search API Interface /giantbomb_request");
+               }
             });
         });
     },
